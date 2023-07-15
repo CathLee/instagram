@@ -11,7 +11,7 @@
 import { DefaultTheme } from "styled-components";
 
 const theme: DefaultTheme = {
-    colors: {
+    color: {
         bg_gray: "#fafafa",
         bg_white: "#fff",
         bd_gray: "#dbdbdb",
