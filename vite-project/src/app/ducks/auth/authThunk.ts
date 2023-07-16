@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:20:09
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-16 10:59:18
+ * @LastEditTime: 2023-07-16 12:40:47
  * @FilePath: /instagram/vite-project/src/app/ducks/auth/authThunk.ts
  * @Description:
  *
@@ -12,6 +12,9 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SignInRequestType } from "./authThunk.type";
+import { customAxios } from "../../../customAxios";
+import { AxiosRequestConfig } from "axios";
+
 /**
  * 这里的范型是有两个，第一个是返回值的类型，第二个是参数的类型
  * @param AuthType.Token 返回值的类型
@@ -24,19 +27,48 @@ const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
      */
     "auth/signIn",
     /**
-     * 
+     *
      * @param payload thunk action的payload
      * @param _ThunkOptions 一种类型，包含dispatch，getState等等
      */
     async (payload, ThunkOptions) => {
-        try{
-            const {data} = await axios.post<AuthType.Token>("login",{
-                username:payload.username,
-                password:payload.password,
+        try {
+            // 这里不确定为什么要使用{data:{data}}，而不是直接使用data
+            // const {
+            //     data: { data },
+            // } = await customAxios.post(`/login`, {
+            //     password: payload.password,
+            //     username: payload.username,
+            // });
+            const { data } = await customAxios.post(`/login`, {
+                password: payload.password,
+                username: payload.username,
             });
-            return data
-        }catch(e){
-            ThunkOptions.rejectWithValue(e);
+            return data;
+        } catch (e) {
+            if (!window.navigator.onLine) {
+                ThunkOptions.rejectWithValue("网络异常，请检查网络");
+            } else {
+                const checkUserName = async () => {
+                    try {
+                        const config = {
+                            params: {
+                                username: payload.username,
+                            },
+                        };
+                        const { data } = await customAxios.get(
+                            `/accounts/check`,
+                            config,
+                        );
+                        return data;
+                    } catch (e) {
+                        throw ThunkOptions.rejectWithValue("未知错误", e);
+                    }
+                };
+                await ThunkOptions.dispatch(checkUserName).then((res)=>{
+                    ThunkOptions.dispatch()
+                })
+            }
         }
     },
 );
