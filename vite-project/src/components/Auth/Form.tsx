@@ -2,14 +2,15 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 12:21:46
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-15 16:26:37
+ * @LastEditTime: 2023-07-17 20:04:17
  * @FilePath: /instagram/vite-project/src/components/Auth/Form.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import styled from "styled-components";
-import ContentBox from "../ContentBox";
+import LoginForm from "./LoginForm/LoginFormContent";
+import ContentBox from "../Common/ContentBox";
 const Container = styled.div<{ pathnamne: string }>`
     display: flex;
     flex-direction: column;
@@ -32,7 +33,9 @@ const Form = (props: { router: "signIn" | "signOut" }) => {
                     padding={contentBox.padding}
                     margin={contentBox.margin}
                 >
-                    fdafsd
+                    {
+                        props.router === "signIn" ? <LoginForm />:''
+                    }
                 </ContentBox>
             </Container>
         </>

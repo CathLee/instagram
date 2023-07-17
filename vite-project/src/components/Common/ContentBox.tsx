@@ -9,7 +9,7 @@
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { styled } from "styled-components";
-import Card from "../style/UI/Card/Card";
+import Card from "../../style/UI/Card/Card";
 const ContentBox = styled(Card)<UIType.ContentBoxProps>`
     padding: ${(props) => props.padding};
     margin: ${(props) => props.margin};

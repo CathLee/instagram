@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:20:09
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-16 12:40:47
+ * @LastEditTime: 2023-07-17 20:02:12
  * @FilePath: /instagram/vite-project/src/app/ducks/auth/authThunk.ts
  * @Description:
  *
@@ -14,9 +14,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SignInRequestType } from "./authThunk.type";
 import { customAxios } from "../../../customAxios";
 import { AxiosRequestConfig } from "axios";
+import { authAction } from "./authSlice";
 
 /**
  * 这里的范型是有两个，第一个是返回值的类型，第二个是参数的类型
+ * @description 登陆时校验当前用户，并存储token
  * @param AuthType.Token 返回值的类型
  * @param SignInRequestType 参数的类型
  */
@@ -45,7 +47,7 @@ const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
                 username: payload.username,
             });
             return data;
-        } catch (e) {
+        } catch (error) {
             if (!window.navigator.onLine) {
                 ThunkOptions.rejectWithValue("网络异常，请检查网络");
             } else {
@@ -61,13 +63,15 @@ const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
                             config,
                         );
                         return data;
-                    } catch (e) {
-                        throw ThunkOptions.rejectWithValue("未知错误", e);
+                    } catch (error) {
+                        throw ThunkOptions.rejectWithValue(error);
                     }
                 };
-                await ThunkOptions.dispatch(checkUserName).then((res)=>{
-                    ThunkOptions.dispatch()
-                })
+                // 检查当前用户名是否存在
+                await ThunkOptions.dispatch(checkUserName).then((res) => {
+                    ThunkOptions.dispatch(authAction.hasUser(res));
+                });
+                throw ThunkOptions.rejectWithValue(error);
             }
         }
     },
