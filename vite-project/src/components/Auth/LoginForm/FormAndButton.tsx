@@ -2,17 +2,71 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-17 20:49:26
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-17 20:50:38
+ * @LastEditTime: 2023-07-24 21:53:55
  * @FilePath: /instagram/vite-project/src/components/Auth/LoginForm/FormAndButton.tsx
- * @Description: 
- * 
- * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 
-const LoginFormAndButton = () => {
-  return (
-    <div>LoginFormAndButton</div>
-  )
-}
+import { MouseEvent } from "react";
+import { signIn } from "../../../app/store/ducks/auth/authThunk";
+import { useAppDispatch } from "../../../app/store/Hooks";
+import useInput from "../../../hooks/useInput";
+import Input from "../../Common/Input";
+import SubmitButton from "../SubmitButton";
 
-export default LoginFormAndButton
+const placeholder = {
+    username: "请输入姓名",
+    password: "请输入密码",
+};
+
+const LoginFormAndButton = () => {
+    const [usernameInputProps, usernameIsValid, usernameIsFocus] = useInput(
+        "",
+        undefined,
+        (value) => value.length > 0,
+    );
+    const [passwordInputProps, passwordIsValid, passwordIsFocus] = useInput(
+        "",
+        undefined,
+        (value) => value.length > 5,
+    );
+
+    const dispatch = useAppDispatch();
+    const submitButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const requestSignIn = async () => {
+            await dispatch(
+                signIn({
+                    username: usernameInputProps.value,
+                    password: passwordInputProps.value,
+                }),
+            );
+        };
+        requestSignIn();
+    };
+    return (
+        <>
+            <Input
+                type="text"
+                inputName="username"
+                innerText={placeholder.username}
+                inputProps={usernameInputProps}
+                isFocus={usernameIsFocus}
+            ></Input>
+            <Input
+                type="password"
+                inputName="password"
+                innerText={placeholder.password}
+                inputProps={passwordInputProps}
+                isFocus={passwordIsFocus}
+            />
+            <SubmitButton type="submit" onClick={submitButtonClickHandler}>
+                登录
+            </SubmitButton>
+        </>
+    );
+};
+
+export default LoginFormAndButton;

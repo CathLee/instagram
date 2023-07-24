@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:06:37
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-17 20:56:48
+ * @LastEditTime: 2023-07-23 20:53:05
  * @FilePath: /instagram/vite-project/src/components/Auth/LoginForm/LoginFormContent.tsx
  * @Description:
  *
@@ -10,7 +10,7 @@
  */
 
 import { styled } from "styled-components";
-import Logo from "../../../assets/react.svg";
+import Logo from "../../../assets/images/hero.png";
 import FacebookLogin from "../FacebookLogin";
 import Line from "../Line";
 import LoginFormAndButton from "./FormAndButton";
