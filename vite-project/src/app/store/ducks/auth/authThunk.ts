@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:20:09
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-23 21:05:28
+ * @LastEditTime: 2023-08-12 10:31:36
  * @FilePath: /instagram/vite-project/src/app/store/ducks/auth/authThunk.ts
  * @Description:
  *
@@ -47,6 +47,7 @@ export const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
                 password: payload.password,
                 username: payload.username,
             });
+            console.log(data)
             return data;
         } catch (error) {
             if (!window.navigator.onLine) {

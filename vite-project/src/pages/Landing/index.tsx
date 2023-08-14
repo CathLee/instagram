@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 09:47:21
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-15 12:36:23
+ * @LastEditTime: 2023-08-13 18:09:57
  * @FilePath: /instagram/vite-project/src/pages/Landing/index.tsx
  * @Description:
  *
@@ -11,6 +11,7 @@
 
 import Form from "../../components/Auth/Form";
 import styled from "styled-components";
+import {ShowingInstagram} from "../../components/Auth/InstagramImageSlider";
 const Container = styled.section`
     display: flex;
     flex-direction: column;
@@ -37,6 +38,7 @@ const Landing: React.FC = () => {
     return (
         <>
             <Container>
+            <ShowingInstagram />
                 <main className="container">
                     main
                     <div className="form">

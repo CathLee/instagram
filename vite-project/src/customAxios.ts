@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-16 11:08:58
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-16 11:15:31
+ * @LastEditTime: 2023-08-12 10:31:05
  * @FilePath: /instagram/vite-project/src/customAxios.ts
  * @Description: 创建全局拦截器
  * 
@@ -13,6 +13,6 @@
 import axios, { AxiosInstance } from 'axios';
 
 export const customAxios:AxiosInstance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:8080',
     withCredentials: true,
 });

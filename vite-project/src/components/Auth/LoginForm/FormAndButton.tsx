@@ -2,13 +2,14 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-17 20:49:26
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-24 21:53:55
+ * @LastEditTime: 2023-08-12 11:05:30
  * @FilePath: /instagram/vite-project/src/components/Auth/LoginForm/FormAndButton.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 
+import axios from "axios";
 import { MouseEvent } from "react";
 import { signIn } from "../../../app/store/ducks/auth/authThunk";
 import { useAppDispatch } from "../../../app/store/Hooks";
@@ -21,7 +22,7 @@ const placeholder = {
     password: "请输入密码",
 };
 
-const LoginFormAndButton = () => {
+const LoginFormAndButton =  () => {
     const [usernameInputProps, usernameIsValid, usernameIsFocus] = useInput(
         "",
         undefined,
@@ -34,7 +35,7 @@ const LoginFormAndButton = () => {
     );
 
     const dispatch = useAppDispatch();
-    const submitButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    const submitButtonClickHandler = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         const requestSignIn = async () => {
             await dispatch(
@@ -44,6 +45,9 @@ const LoginFormAndButton = () => {
                 }),
             );
         };
+        const res = await axios.get("http://192.168.0.104:8080/api/users");
+        console.log(res);
+        
         requestSignIn();
     };
     return (
