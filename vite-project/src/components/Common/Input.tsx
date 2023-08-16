@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-18 20:10:19
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-24 21:48:55
+ * @LastEditTime: 2023-08-14 22:02:01
  * @FilePath: /instagram/vite-project/src/components/Common/Input.tsx
  * @Description: 触发input操作的真实对象
  *
@@ -161,6 +161,7 @@ const Input = (props: AuthType.InputProps) => {
                                 className="stateStyle"
                             />
                         ))}
+                    
                     {isShowPassword && (
                         <button
                             className="showPassword stateStyle"

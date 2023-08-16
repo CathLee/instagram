@@ -2,9 +2,9 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:20:09
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-12 10:31:36
+ * @LastEditTime: 2023-08-16 22:17:20
  * @FilePath: /instagram/vite-project/src/app/store/ducks/auth/authThunk.ts
- * @Description:
+ * @Description: thunk 主要是一个处理异步请求的一个函数，使用slice的action,将dispatch和actionCreator结合起来,
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */

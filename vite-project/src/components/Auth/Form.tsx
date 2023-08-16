@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 12:21:46
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-17 20:04:17
+ * @LastEditTime: 2023-08-14 21:55:03
  * @FilePath: /instagram/vite-project/src/components/Auth/Form.tsx
  * @Description:
  *
@@ -11,6 +11,7 @@
 import styled from "styled-components";
 import LoginForm from "./LoginForm/LoginFormContent";
 import ContentBox from "../Common/ContentBox";
+import { UIType } from "../../@type";
 const Container = styled.div<{ pathnamne: string }>`
     display: flex;
     flex-direction: column;

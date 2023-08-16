@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 09:47:21
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-13 18:09:57
+ * @LastEditTime: 2023-08-14 21:19:34
  * @FilePath: /instagram/vite-project/src/pages/Landing/index.tsx
  * @Description:
  *
@@ -16,6 +16,7 @@ const Container = styled.section`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
     .container {
         display: flex;
         justify-content: center;
@@ -25,6 +26,7 @@ const Container = styled.section`
         max-width: 935px;
         flex-grow: 1;
     }
+
     .form {
         display: flex;
         flex-direction: column;
@@ -38,9 +40,9 @@ const Landing: React.FC = () => {
     return (
         <>
             <Container>
-            <ShowingInstagram />
+           
                 <main className="container">
-                    main
+                <ShowingInstagram />
                     <div className="form">
                         form
                         <Form router="signIn"></Form>

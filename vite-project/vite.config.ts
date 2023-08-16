@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-14 22:00:27
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-14 21:09:47
+ * @LastEditTime: 2023-08-14 22:48:46
  * @FilePath: /instagram/vite-project/vite.config.ts
  * @Description: 
  * 
@@ -18,7 +18,7 @@ export default defineConfig({
     host:true,
     proxy: {
       '/api': {
-        target: 'http://192.168.0.104:8080', // 后端服务器地址
+        target: 'http://192.168.0.103:8080', // 后端服务器地址
         changeOrigin: true,   
         rewrite: (path) => path.replace(/^\/api/, '')
       }
