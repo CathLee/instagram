@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:20:09
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-16 22:17:20
+ * @LastEditTime: 2023-08-23 22:47:38
  * @FilePath: /instagram/vite-project/src/app/store/ducks/auth/authThunk.ts
  * @Description: thunk 主要是一个处理异步请求的一个函数，使用slice的action,将dispatch和actionCreator结合起来,
  *
@@ -15,7 +15,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SignInRequestType } from "./authThunk.type";
 import { AxiosRequestConfig } from "axios";
 import { authAction } from "./authSlice";
-import { customAxios } from "../../../../customAxios";
+import { authorizedCustomAxios, customAxios } from "../../../../customAxios";
 
 /**
  * 这里的范型是有两个，第一个是返回值的类型，第二个是参数的类型
@@ -43,11 +43,12 @@ export const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
             //     password: payload.password,
             //     username: payload.username,
             // });
-            const { data } = await customAxios.post(`/login`, {
-                password: payload.password,
-                username: payload.username,
-            });
-            console.log(data)
+            // const { data } = await customAxios.post(`/login`, {
+            //     password: payload.password,
+            //     username: payload.username,
+            // });
+            const { data } = await customAxios.get(`/api/users`);
+            console.log(data);
             return data;
         } catch (error) {
             if (!window.navigator.onLine) {
@@ -60,10 +61,12 @@ export const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
                                 username: payload.username,
                             },
                         };
-                        const { data } = await customAxios.get(
-                            `/accounts/check`,
-                            config,
-                        );
+                        // const { data } = await customAxios.get(
+                        //     `/accounts/check`,
+                        //     config,
+                        // );
+                        const { data } = await customAxios.get(`/api/users`);
+                        console.log(data);
                         return data;
                     } catch (error) {
                         throw ThunkOptions.rejectWithValue(error);
@@ -78,3 +81,14 @@ export const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
         }
     },
 );
+
+export const logout = createAsyncThunk<void,void>(
+    "auth/logout",
+    async(playload,ThunkOptions)=>{
+        try{
+            await authorizedCustomAxios.post(`/logout`);
+        }catch(error){
+            ThunkOptions.rejectWithValue(error);
+        }
+    }
+)

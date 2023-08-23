@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 09:47:21
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-14 21:19:34
+ * @LastEditTime: 2023-08-20 16:16:13
  * @FilePath: /instagram/vite-project/src/pages/Landing/index.tsx
  * @Description:
  *
@@ -12,6 +12,7 @@
 import Form from "../../components/Auth/Form";
 import styled from "styled-components";
 import {ShowingInstagram} from "../../components/Auth/InstagramImageSlider";
+import { useAppSelector } from "../../app/store/Hooks";
 const Container = styled.section`
     display: flex;
     flex-direction: column;
@@ -37,14 +38,16 @@ const Container = styled.section`
     }
 `;
 const Landing: React.FC = () => {
+    const isLogin = useAppSelector((state) => state.auth.isLogin);
     return (
         <>
             <Container>
-           
+            
                 <main className="container">
+
                 <ShowingInstagram />
                     <div className="form">
-                        form
+                        {isLogin?"fdsfasd":"aaaa"}
                         <Form router="signIn"></Form>
                     </div>
                 </main>
