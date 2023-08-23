@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-14 22:00:27
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-15 10:17:50
+ * @LastEditTime: 2023-08-20 16:50:19
  * @FilePath: /instagram/vite-project/src/App.tsx
  * @Description:
  *
@@ -10,20 +10,38 @@
  */
 import styled from "styled-components";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Route from "./Routes";
+import { useAppDispatch, useAppSelector } from "./app/store/Hooks";
+import { authAction } from "./app/store/ducks/auth/authSlice";
+import { customAxios } from "./customAxios";
+import Routes from "./Routes";
 
 
 
 function App() {
-    const [count, setCount] = useState(0);
-
+    const isRefreshTokenChecking = useAppSelector((state) => state.auth.isRefreshTokenChecking);
+    const dispatch = useAppDispatch();
+    // useEffect(()=>{
+    //     const reset = async ()=>{
+    //         try{
+    //             const {data} =await customAxios.get("api/users")
+    //             if(data){
+    //                 dispatch(authAction.login())
+    //             }
+    //         }finally{
+    //             dispatch(authAction.finishRefreshTokenChecking());
+    //         }
+    //     }
+    //     reset()
+    // },[dispatch])
     return (
-        <>
-            <Route />
-        </>
+        <div className="App">
+            {/* {isRefreshTokenChecking ? "fdfasd" : <Routes />} */}
+            <Routes />
+        </div>
     );
 }
 
