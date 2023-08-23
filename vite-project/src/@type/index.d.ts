@@ -1,10 +1,9 @@
-
 import { ChangeEvent } from "react";
 /*
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 12:24:05
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-07-23 20:43:51
+ * @LastEditTime: 2023-08-22 21:53:46
  * @FilePath: /instagram/vite-project/src/@type/index.d.ts
  * @Description:
  *
@@ -22,6 +21,7 @@ declare namespace UIType {
     }
 }
 
+// 用户鉴权相关信息
 declare namespace AuthType {
     interface useInputProps {
         value: string;
@@ -44,6 +44,7 @@ declare namespace AuthType {
     }
 }
 
+// 通用类型
 declare namespace CommonType {
     interface ImageProps {
         width: number;
@@ -51,5 +52,84 @@ declare namespace CommonType {
         position: string;
         url: string;
         size?: string;
+    }
+    interface memberType {
+        id: number;
+        username: string;
+        name: string;
+        image: ImageInfo;
+        hasStory: boolean;
+    }
+    interface searchResultType {
+        dType: "MEMBER" | "HASHTAG";
+
+        // "MEMBER"
+        follwer?: boolean;
+        following?: boolean;
+        followingMemberFollow?: { memberUserName: string }[];
+        member?: memberType;
+
+        // "HASHTAG"
+        name?: string;
+        postCount?: number;
+    }
+}
+
+// 弹窗类型
+declare namespace ModalType {
+    // 激活的弹窗类型
+    type ActivatedModalType =
+        | "unfollowing"
+        | "report"
+        | "articleMenu"
+        | "commentMenu"
+        | "shareWith"
+        | null;
+    // 用户信息弹窗类型
+    interface MiniProfileProps {
+        blocked: boolean;
+        blocking: boolean;
+        follower: boolean;
+        following: boolean;
+        hasStory: boolean;
+        //我关注的 1 位关注此用户的代表
+        followingMemberFollow: [
+            {
+                memberUsername: string;
+            },
+        ];
+        followingMemberFollowCount: number; // 除上述成员外的剩余成员人数
+        me: boolean;
+        memberFollowersCount: number; // 关注用户的人
+        memberFollowingsCount: number; // 用户关注的每个人
+        memberPostsCount: number; // 帖子数量
+        memberImage: {
+            imageUrl: string;
+            imageType: string;
+            imageName: string;
+            imageUUID: string;
+        };
+        memberName: string;
+        // 后面的[]表示当前数组中的每一项都是一个对象，对象中有两个属性，postId和postImageUrl
+        memberPosts: { postId: number; postImageUrl: string }[]; // string
+        memberUsername: string;
+        memberWebsite: null | string;
+    }
+    interface MiniProfileStateProps extends MiniProfileProps {
+        isLoading: boolean;
+        modalPosition: ModalPositionProps;
+    }
+
+    interface ModalStateProps {
+        activatedModal: ActivatedModalType;
+        memberUsername: string; // dlwlrma
+        memberImageUrl: string;
+        postId: number | null;
+        commentId: number | null;
+        miniProfile: MiniProfileStateProps | null;
+        isFollowing: boolean | null;
+        isOnMiniProfile: boolean;
+        isArticleAloneModalOn: boolean;
+        articleAloneModalPostId: number | null;
     }
 }
