@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-08-20 21:32:58
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-23 23:22:14
+ * @LastEditTime: 2023-08-24 22:25:16
  * @FilePath: /instagram/vite-project/src/components/Common/Header/SearchBar.tsx
  * @Description:
  *
@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { getSearchRecord } from "../../../app/store/ducks/common/commonThunk";
 import { useAppDispatch } from "../../../app/store/Hooks";
 import theme from "../../../style/themes";
+import sprite from "../../../assets/images/sprite.png";
 
 const SearchBarContainer = styled.div`
     position: relative;
@@ -96,8 +97,11 @@ const SearchIcon = styled.div`
 `;
 
 const SearchBar = () => {
-    const ref: React.RefObject<HTMLDivElement> = useRef(null);
+    const ref: RefObject<HTMLDivElement> = useRef(null);
+    const inputRef: RefObject<HTMLInputElement> = useRef(null);
     const [isFocus, setIsFocus] = useState(false);
+
+    const searchUserKeyword = useAppDispatch
     const dispatch = useAppDispatch();
     return (
         <SearchBarContainer
@@ -107,7 +111,16 @@ const SearchBar = () => {
                 dispatch(getSearchRecord());
             }}
         >
-            <input type="text" className="search-bar" />
+            <label htmlFor="search">
+                <SearchIcon />
+            </label>
+            <input
+                id="search"
+                ref={inputRef}
+                type="text"
+                className="search-bar"
+                value={searchUserKeyword}
+            />
             <div className="arrow" />
             <div className="search-list"></div>
         </SearchBarContainer>
