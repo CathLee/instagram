@@ -24,7 +24,7 @@ const initialState: ModalType.ModalStateProps = {
     articleAloneModalPostId: null,
 };
 // 当前hover的用户信息
-interface HoverModalPayloadType {
+interface HoverModalPayloadtype {
     memberUsername: string;
     memberImageUrl: string;
 }
@@ -32,7 +32,7 @@ const modalSlice = createSlice({
     name: "modal",
     initialState,
     reducers: {
-        startHoverModal(state, actions:PayloadAction<HoverModalPayloadType>) {
+        startHoverModal(state, actions:PayloadAction<HoverModalPayloadtype>) {
             state.isOnMiniProfile = true;
             state.activatedModal = null;
             state.memberUsername = actions.payload.memberUsername;

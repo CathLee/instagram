@@ -2,18 +2,24 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-08-20 21:32:58
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-24 22:25:16
+ * @LastEditTime: 2023-08-28 22:17:18
  * @FilePath: /instagram/vite-project/src/components/Common/Header/SearchBar.tsx
- * @Description:
+ * @Description: 搜索框
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { RefObject, useRef, useState } from "react";
 import styled from "styled-components";
-import { getSearchRecord } from "../../../app/store/ducks/common/commonThunk";
-import { useAppDispatch } from "../../../app/store/Hooks";
+import {
+    getSearchRecord,
+    searchUser,
+} from "../../../app/store/ducks/common/commonThunk";
+import { useAppDispatch, useAppSelector } from "../../../app/store/Hooks";
 import theme from "../../../style/themes";
 import sprite from "../../../assets/images/sprite.png";
+import { authorizedCustomAxios } from "../../../customAxios";
+import { changeSearchUser, resetRecordedUser } from "../../../app/store/ducks/common/commonSlice";
+import SearchListItem from "../../Home/SearchListItem";
 
 const SearchBarContainer = styled.div`
     position: relative;
@@ -99,15 +105,24 @@ const SearchIcon = styled.div`
 const SearchBar = () => {
     const ref: RefObject<HTMLDivElement> = useRef(null);
     const inputRef: RefObject<HTMLInputElement> = useRef(null);
-    const [isFocus, setIsFocus] = useState(false);
+    const [isFocus, setIsFocused] = useState(false);
 
-    const searchUserKeyword = useAppDispatch
+    const searchUserKeyword = useAppSelector(
+        (state) => state.common.searchUserKeyword,
+    );
+
+    const recordedUser = useAppSelector((state)=>state.common.recordedUser)
     const dispatch = useAppDispatch();
+    const removeAllRecordHandler = async ()=>{
+        const result = await authorizedCustomAxios.delete("/deleteAllRecord");
+        dispatch(resetRecordedUser);
+        alert(result.data.message);
+    }
     return (
         <SearchBarContainer
             ref={ref}
             onClick={() => {
-                setIsFocus(true);
+                setIsFocused(true);
                 dispatch(getSearchRecord());
             }}
         >
@@ -120,9 +135,50 @@ const SearchBar = () => {
                 type="text"
                 className="search-bar"
                 value={searchUserKeyword}
+                onChange={async (e) => {
+                    dispatch(changeSearchUser(e.target.value));
+                    if (e.target.value !== "") {
+                        await dispatch(searchUser({ keyword: e.target.value }));
+                    }
+                }}
+                placeholder="搜索"
             />
-            <div className="arrow" />
-            <div className="search-list"></div>
+            {isFocus && (
+                <>
+                    {/* 最近的搜索 */}
+                    <div className="arrow" />
+                    <div className="search-list">
+                        {searchUserKeyword === "" && (
+                            <>
+                                <div className="recent-container">
+                                    <div className="header">
+                                        <span className="search-text">
+                                            最近的搜索
+                                        </span>
+                                        <button
+                                            className="remove-text"
+                                            onClick={removeAllRecordHandler}
+                                        >
+                                            全部清除
+                                        </button>
+                                    </div>
+                                    {"dfasdsdafdsfasdf"}
+                                    {recordedUser}
+                                    {
+                                        recordedUser.map((item)=>(
+                                            <SearchListItem
+                                            key={item.member?.username || item.name}
+                                            {...item}
+                                            setIsFocused={setIsFocused}
+                                            ></SearchListItem>
+                                        ))
+                                    }
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </>
+            )}
         </SearchBarContainer>
     );
 };

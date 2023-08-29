@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-08-22 21:57:37
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-23 23:15:25
+ * @LastEditTime: 2023-08-28 22:15:08
  * @FilePath: /instagram/vite-project/src/app/store/ducks/common/commonThunk.ts
  * @Description:
  *
@@ -22,14 +22,16 @@ export const searchUser = createAsyncThunk<
 >(
     "common/searchUser",
     async (playload, { getState, dispatch, rejectWithValue }) => {
-        const config = {
-            params: {
-                text: playload.keyword,
-            },
-        };
+        // const config = {
+        //     params: {
+        //         text: playload.keyword,
+        //     },
+        // };
         try {
-            const { data } = await authorizedCustomAxios("/searchUser", config);
-            return data.data;
+            const { data } = await authorizedCustomAxios(`/api/users/search/${playload.keyword}`);
+            console.log(data);
+            
+            return data
         } catch (error) {
             error === FAIL_TO_REISSUE_MESSAGE && dispatch(authAction.logout());
         }

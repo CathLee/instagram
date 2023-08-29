@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 12:24:05
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-22 21:53:46
+ * @LastEditTime: 2023-08-27 14:57:06
  * @FilePath: /instagram/vite-project/src/@type/index.d.ts
  * @Description:
  *
@@ -61,12 +61,12 @@ declare namespace CommonType {
         hasStory: boolean;
     }
     interface searchResultType {
-        dType: "MEMBER" | "HASHTAG";
+        dtype: "MEMBER" | "HASHTAG";
 
         // "MEMBER"
         follwer?: boolean;
         following?: boolean;
-        followingMemberFollow?: { memberUserName: string }[];
+        followingMemberFollow?: { memberUsername: string }[];
         member?: memberType;
 
         // "HASHTAG"

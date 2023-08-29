@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-16 11:08:58
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-22 22:05:23
+ * @LastEditTime: 2023-08-26 13:34:31
  * @FilePath: /instagram/vite-project/src/customAxios.ts
  * @Description: 创建全局拦截器
  * 
