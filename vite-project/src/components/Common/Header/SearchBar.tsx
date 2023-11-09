@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-08-20 21:32:58
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-28 22:17:18
+ * @LastEditTime: 2023-10-16 20:12:09
  * @FilePath: /instagram/vite-project/src/components/Common/Header/SearchBar.tsx
  * @Description: 搜索框
  *
@@ -18,7 +18,10 @@ import { useAppDispatch, useAppSelector } from "../../../app/store/Hooks";
 import theme from "../../../style/themes";
 import sprite from "../../../assets/images/sprite.png";
 import { authorizedCustomAxios } from "../../../customAxios";
-import { changeSearchUser, resetRecordedUser } from "../../../app/store/ducks/common/commonSlice";
+import {
+    changeSearchUser,
+    resetRecordedUser,
+} from "../../../app/store/ducks/common/commonSlice";
 import SearchListItem from "../../Home/SearchListItem";
 
 const SearchBarContainer = styled.div`
@@ -111,13 +114,13 @@ const SearchBar = () => {
         (state) => state.common.searchUserKeyword,
     );
 
-    const recordedUser = useAppSelector((state)=>state.common.recordedUser)
+    const recordedUser = useAppSelector((state) => state.common.recordedUser);
     const dispatch = useAppDispatch();
-    const removeAllRecordHandler = async ()=>{
+    const removeAllRecordHandler = async () => {
         const result = await authorizedCustomAxios.delete("/deleteAllRecord");
         dispatch(resetRecordedUser);
         alert(result.data.message);
-    }
+    };
     return (
         <SearchBarContainer
             ref={ref}
@@ -149,32 +152,37 @@ const SearchBar = () => {
                     <div className="arrow" />
                     <div className="search-list">
                         {searchUserKeyword === "" && (
-                            <>
-                                <div className="recent-container">
-                                    <div className="header">
-                                        <span className="search-text">
-                                            最近的搜索
-                                        </span>
-                                        <button
-                                            className="remove-text"
-                                            onClick={removeAllRecordHandler}
-                                        >
-                                            全部清除
-                                        </button>
-                                    </div>
-                                    {"dfasdsdafdsfasdf"}
-                                    {recordedUser}
+                            <div className="recent-container">
+                                <div className="header">
+                                    <span className="search-text">
+                                        最近的搜索
+                                    </span>
+                                    <button
+                                        className="remove-text"
+                                        onClick={removeAllRecordHandler}
+                                    >
+                                        全部清除
+                                    </button>
+                                </div>
+
+                                <>
                                     {
-                                        recordedUser.map((item)=>(
-                                            <SearchListItem
-                                            key={item.member?.username || item.name}
-                                            {...item}
-                                            setIsFocused={setIsFocused}
-                                            ></SearchListItem>
+                                        recordedUser.map((i)=>(
+                                            <div>{i.name}</div>
                                         ))
                                     }
-                                </div>
-                            </>
+                                    {recordedUser.map((item) => (
+                                        <SearchListItem
+                                            key={
+                                                item.member?.username ||
+                                                item.name
+                                            }
+                                            {...item}
+                                            setIsFocused={setIsFocused}
+                                        ></SearchListItem>
+                                    ))}
+                                </>
+                            </div>
                         )}
                     </div>
                 </>

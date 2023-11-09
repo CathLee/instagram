@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 12:24:05
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-27 14:57:06
+ * @LastEditTime: 2023-10-29 15:58:47
  * @FilePath: /instagram/vite-project/src/@type/index.d.ts
  * @Description:
  *
@@ -23,6 +23,12 @@ declare namespace UIType {
 
 // 用户鉴权相关信息
 declare namespace AuthType {
+    interface UserInfo {
+        memberId: number;
+        memberImageUrl: string;
+        memberName: string;
+        memberUsername: string;
+    }
     interface useInputProps {
         value: string;
         onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -72,6 +78,62 @@ declare namespace CommonType {
         // "HASHTAG"
         name?: string;
         postCount?: number;
+    }
+}
+
+// post返回的类型
+
+declare namespace PostType {
+    interface ArticleProps {
+        followingMemberUsernameLikedPost: null | string; // 내가 팔로우한 사람 중에서 이 글을 좋아한 사람 있으면 보내줌
+        member: CommonType.memberType;
+        postBookmarkFlag: boolean; // 내가 북마크 했는지
+        postCommentsCount: number;
+        postContent: string;
+        postId: number;
+        postImages: CommonType.PostImageDTOProps[];
+        postLikeFlag: boolean; // 내가 좋아요 했는지
+        postLikesCount: number;
+        postUploadDate: string;
+        hashtagsOfContent: string[];
+        mentionsOfContent: string[];
+        likeOptionFlag: boolean; // 업로드한 사람만 좋아요 및 좋아요한 사람 확인 가능
+        commentOptionFlag: boolean; // 댓글 작성 가능 여부
+        following: boolean;
+        recentComments: CommentType[];
+    }
+
+    interface ArticleStateProps extends ArticleProps {
+        followLoading: boolean;
+    }
+}
+
+// 首页文章类型
+declare namespace HomeType {
+    type StoriesScrollPosition = "left" | "right" | "center";
+    interface homeStateProps {
+        storiesScrollPosition: StoriesScrollPosition;
+        articles: PostType.ArticleStateProps[];
+        // locations
+        isLoading: boolean;
+        isExtraArticleLoading: boolean;
+        extraArticlesCount: number;
+        isAsyncError: boolean;
+        hoveredUser: {
+            avatarUrl: string;
+            verified: boolean;
+            isFollowing: boolean;
+            realName: string;
+            link: string;
+            followingUsername: string[];
+            articlesNum: number;
+            followsNum: number;
+            recentImgs: {
+                src: string;
+                param: string;
+            }[];
+        } | null;
+        isCopiedNotification: boolean;
     }
 }
 

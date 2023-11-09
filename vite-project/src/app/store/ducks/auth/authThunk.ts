@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-07-15 17:20:09
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-08-23 22:47:38
+ * @LastEditTime: 2023-10-16 19:55:33
  * @FilePath: /instagram/vite-project/src/app/store/ducks/auth/authThunk.ts
  * @Description: thunk 主要是一个处理异步请求的一个函数，使用slice的action,将dispatch和actionCreator结合起来,
  *
@@ -47,7 +47,8 @@ export const signIn = createAsyncThunk<AuthType.Token, SignInRequestType>(
             //     password: payload.password,
             //     username: payload.username,
             // });
-            const { data } = await customAxios.get(`/api/users`);
+            // const { data } = await customAxios.get(`/api/users`);
+            const data = "fadsfd"
             console.log(data);
             return data;
         } catch (error) {
