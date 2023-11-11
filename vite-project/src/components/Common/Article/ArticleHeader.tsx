@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-10-29 15:43:39
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-10-29 16:14:08
+ * @LastEditTime: 2023-11-11 19:33:08
  * @FilePath: /instagram/vite-project/src/components/Common/Article/ArticleHeader.tsx
  * @Description:
  *
@@ -90,6 +90,7 @@ const ArticleHeader = ({
         event: React.MouseEvent<HTMLSpanElement | HTMLDivElement>,
     ) => {
         if (!event) return;
+        // 测试一下rebase
         const {top,bottom,left} = event.currentTarget.getBoudingclientRect()
         await dispath(
             getMiniProfile({
