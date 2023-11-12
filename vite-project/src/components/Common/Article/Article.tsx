@@ -2,7 +2,7 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-10-28 21:44:50
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-10-29 09:48:53
+ * @LastEditTime: 2023-11-11 21:13:53
  * @FilePath: /instagram/vite-project/src/components/Common/Article/Article.tsx
  * @Description:
  *
@@ -31,7 +31,11 @@ const ArticleCard = styled(Card)<ArticleCardProps>`
     margin-bottom: ${({ isModal }) => (isModal ? 0 : "2px")};
 `;
 
-const Article = ({ article, isObserving, isModal = false }:ArticleComponentPros) => {
+const Article = ({
+    article,
+    isObserving,
+    isModal = false,
+}: ArticleComponentPros) => {
     const [isLiked, setIsLiked] = useState(article.postLikeFlag);
     const [likesCount, setLikeCounts] = useState(article.postLikesCount);
     const articleRef = useRef<HTMLDivElement>(null);
@@ -51,19 +55,13 @@ const Article = ({ article, isObserving, isModal = false }:ArticleComponentPros)
             }
         };
         console.log("hola");
-        
     }, [dispatch]);
 
     return (
         // as="article" 表示 ArticleCard 组件应该被渲染成一个 <article> 元素。
 
-        <ArticleCard
-            as="article"
-            ref={articleRef}
-            isModal={isModal}
-        >
-
-            
+        <ArticleCard as="article" ref={articleRef} isModal={isModal}>
+            <ArticleHeader></ArticleHeader>
         </ArticleCard>
     );
 };

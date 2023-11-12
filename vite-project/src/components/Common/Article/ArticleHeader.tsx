@@ -2,15 +2,16 @@
  * @Author: cathylee 447932704@qq.com
  * @Date: 2023-10-29 15:43:39
  * @LastEditors: cathylee 447932704@qq.com
- * @LastEditTime: 2023-11-11 19:33:08
+ * @LastEditTime: 2023-11-12 09:57:50
  * @FilePath: /instagram/vite-project/src/components/Common/Article/ArticleHeader.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
+import * as React from "react";
 import { styled } from "styled-components";
+import { getMiniProfile } from "../../../app/store/ducks/modal/modalThunk";
 import { useAppDispatch, useAppSelector } from "../../../app/store/Hooks";
-
 const StyledArticleHeader = styled.header`
     height: 60px;
     padding: 16px;
@@ -73,7 +74,7 @@ interface ArticleHeaderProps {
 
 const HEADER_STORY_CIRCLE = 42 / 64;
 
-const ArticleHeader = ({
+const ArticleHeader: React.FC<ArticleHeaderProps> = ({
     memberImageUrl,
     memberUsername,
     postId,
@@ -84,23 +85,21 @@ const ArticleHeader = ({
     const myUsername = useAppSelector(
         (state) => state.auth.userInfo?.memberUsername,
     );
-    const dispath = useAppDispatch();
+    const dispatch = useAppDispatch();
 
     const mouseEnterHandler = async (
         event: React.MouseEvent<HTMLSpanElement | HTMLDivElement>,
     ) => {
         if (!event) return;
-        // 测试一下rebase
-        const {top,bottom,left} = event.currentTarget.getBoudingclientRect()
-        await dispath(
+        const { top, bottom, left } =
+            event.currentTarget.getBoundingClientRect();
+        await dispatch(
             getMiniProfile({
                 memberUsername,
-                modalPosition:{top,bottom,left},
-            })
-        )
+                modalPosition: { top, bottom, left },
+            }),
+        );
     };
+    return <StyledArticleHeader></StyledArticleHeader>;
 };
-function getMiniProfile(arg0: { memberUsername: string; modalPosition: { top: any; bottom: any; left: any; }; }): any {
-    throw new Error("Function not implemented.");
-}
-
+export default React.memo(ArticleHeader);
